@@ -1,7 +1,19 @@
+const config  = require('config');
+const morgan = require('morgan');
 const  express = require('express');
+const helmet = require('helmet');
+const logger = require('./logger');
 const joi = require('joi');
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded());
+app.use(logger);
+app.use(helmet());
+app.use(morgan('tiny'));
+
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app:${app.get('env')}`);
 const courses = [
     {id: 1, name: 'course1'},
     {id: 2, name: 'course2'},
@@ -10,13 +22,16 @@ const courses = [
 
 ];
 
+console.log('Application Name : '+ config.get('name'));
+console.log('Mail server ' + config.get('name'));
+
 app.get('/',(req,res) =>{
     res.send("Hello world");
 });
 app.get('/api/courses',(req,res) =>{
     res.send(courses);
 });
-
+app.use(express.static('public'));
 app.post('/api/courses',(req,res) =>{
     if(!req.body.name || req.body.name.length < 3){
         res.status(400).send("XXXXXXXXX");
