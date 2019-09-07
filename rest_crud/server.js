@@ -26,7 +26,7 @@ app.get('/',(req,res) =>{
     });
 });
 
-equire('./app/routes/note.routes.js')(app);
+require('./app/routes/note.routes.js')(app);
 
 app.listen(3000,() =>{
    console.log("Server is listening on prot 3000");

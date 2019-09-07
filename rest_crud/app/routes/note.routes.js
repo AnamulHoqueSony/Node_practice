@@ -1,6 +1,6 @@
 module.exports = (app) =>{
 
-    const notes = require('../contollers/note.controller.js');
+    const notes = require('../controllers/note.controller.js');
 
 
     app.post('/notes',notes.create);
